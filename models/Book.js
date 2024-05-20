@@ -1,4 +1,4 @@
-import db from '../utils/DBconnection.js';  // Adjust the path if necessary and ensure db.js exports properly
+import db from '../utils/DBconnection.js';  // Adjust the path if necessary and ensure DBconnection.js exports properly
 
 class Book {
     constructor(id, title, author, genre, publicationYear, isbn) {

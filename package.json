@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/MBc0ding/API-JS-testing.git"
+    "url": "https://github.com/MBc0ding/Library-management-system-using-RESTful-API-and-AI-technologies.git"
   },
   "keywords": [
     "nodejs",
@@ -22,11 +22,12 @@
   "author": "BENMIR MOUAD",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MBc0ding/API-JS-testing/issues"
+    "url": "https://github.com/MBc0ding/Library-management-system-using-RESTful-API-and-AI-technologies/issues"
   },
-  "homepage": "https://github.com/MBc0ding/API-JS-testing#readme",
+  "homepage": "https://github.com/MBc0ding/Library-management-system-using-RESTful-API-and-AI-technologies#readme",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mysql2": "^3.9.7",
     "swagger-jsdoc": "^6.2.8",

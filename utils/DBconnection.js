@@ -1,11 +1,14 @@
 import mysql from 'mysql2';
+import dotenv from 'dotenv';
+
+dotenv.config(); 
 
 // Create a pool for managing connections
 const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    database: process.env.DB_DATABASE || 'library_db',
-    password: process.env.DB_PASSWORD || 'MBworld1',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0

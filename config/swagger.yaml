@@ -83,6 +83,82 @@ paths:
           description: Book deleted
         '404':
           description: Book not found
+  /members:
+    get:
+      summary: Get all members
+      responses:
+        '200':
+          description: A list of members
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Member'
+    post:
+      summary: Add a new member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+      responses:
+        '201':
+          description: Member created
+  /members/{id}:
+    get:
+      summary: Get a member by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The member ID
+      responses:
+        '200':
+          description: A single member
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+        '404':
+          description: Member not found
+    put:
+      summary: Update a member by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The member ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+      responses:
+        '200':
+          description: Member updated
+        '404':
+          description: Member not found
+    delete:
+      summary: Delete a member by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The member ID
+      responses:
+        '200':
+          description: Member deleted
+        '404':
+          description: Member not found
 components:
   schemas:
     Book:
@@ -99,4 +175,15 @@ components:
         publicationYear:
           type: integer
         isbn:
+          type: string
+    Member:
+      type: object
+      properties:
+        member_id:
+          type: integer
+        name:
+          type: string
+        address:
+          type: string
+        contact_details:
           type: string
