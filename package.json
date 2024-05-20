@@ -1,0 +1,42 @@
+{
+  "name": "library-management-system-using-restful-api-and-ai-technologies",
+  "version": "1.0.0",
+  "description": "A Library Management System leveraging RESTful APIs and AI technologies to improve library operations, user experience, and resource utilization.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "mocha tests/**/*_test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MBc0ding/API-JS-testing.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mysql",
+    "swagger"
+  ],
+  "author": "BENMIR MOUAD",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MBc0ding/API-JS-testing/issues"
+  },
+  "homepage": "https://github.com/MBc0ding/API-JS-testing#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.4.0",
+    "nodemon": "^2.0.15",
+    "sinon": "^14.0.1"
+  }
+}
