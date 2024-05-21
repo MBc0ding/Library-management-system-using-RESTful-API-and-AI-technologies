@@ -159,6 +159,158 @@ paths:
           description: Member deleted
         '404':
           description: Member not found
+  /loans:
+    get:
+      summary: Get all loans
+      responses:
+        '200':
+          description: A list of loans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Loan'
+    post:
+      summary: Add a new loan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Loan'
+      responses:
+        '201':
+          description: Loan created
+  /loans/{id}:
+    get:
+      summary: Get a loan by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The loan ID
+      responses:
+        '200':
+          description: A single loan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+        '404':
+          description: Loan not found
+    put:
+      summary: Update a loan by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The loan ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Loan'
+      responses:
+        '200':
+          description: Loan updated
+        '404':
+          description: Loan not found
+    delete:
+      summary: Delete a loan by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The loan ID
+      responses:
+        '200':
+          description: Loan deleted
+        '404':
+          description: Loan not found
+  /recommendations:
+    get:
+      summary: Get all recommendations
+      responses:
+        '200':
+          description: A list of recommendations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recommendation'
+    post:
+      summary: Add a new recommendation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recommendation'
+      responses:
+        '201':
+          description: Recommendation created
+  /recommendations/{id}:
+    get:
+      summary: Get a recommendation by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The recommendation ID
+      responses:
+        '200':
+          description: A single recommendation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recommendation'
+        '404':
+          description: Recommendation not found
+    put:
+      summary: Update a recommendation by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The recommendation ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recommendation'
+      responses:
+        '200':
+          description: Recommendation updated
+        '404':
+          description: Recommendation not found
+    delete:
+      summary: Delete a recommendation by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The recommendation ID
+      responses:
+        '200':
+          description: Recommendation deleted
+        '404':
+          description: Recommendation not found
 components:
   schemas:
     Book:
@@ -186,4 +338,36 @@ components:
         address:
           type: string
         contact_details:
+          type: string
+    Loan:
+      type: object
+      properties:
+        loan_id:
+          type: integer
+        book_id:
+          type: integer
+        member_id:
+          type: integer
+        loan_date:
+          type: string
+          format: date
+        due_date:
+          type: string
+          format: date
+        return_date:
+          type: string
+          format: date
+        fines:
+          type: number
+          format: float
+    Recommendation:
+      type: object
+      properties:
+        recommendation_id:
+          type: integer
+        member_id:
+          type: integer
+        recommended_book_ids:
+          type: string
+        reasons:
           type: string

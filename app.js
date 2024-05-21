@@ -34,7 +34,7 @@ const loadRoutes = async (app) => {
         const routePath = pathToFileURL(path.join(routesPath, file)).href;
         const route = await import(routePath);
         // Manually define base paths
-        const routeBase = `/${file.replace('Routes.js', '').toLowerCase()}`+'s';
+        const routeBase = `/${file.replace('Routes.js', '').toLowerCase()}s`; // will return "/books" and other routes for example.
         app.use(routeBase, route.default);
       }
     }
