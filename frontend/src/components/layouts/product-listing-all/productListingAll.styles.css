@@ -1,0 +1,111 @@
+.product-listing-all-container {
+    padding-top: 8rem;
+    padding-bottom: 5rem;
+  }
+  
+  .genre-section {
+    position: relative;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .genre-title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .genre-books-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .genre-books-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 1rem;
+    max-width: 80%; /* Adjust max width */
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .genre-books-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+  }
+  
+  .genre-books-container {
+    -ms-overflow-style: none;  /* Hide scrollbar for Internet Explorer and Edge */
+    scrollbar-width: none;  /* Hide scrollbar for Firefox */
+  }
+  
+  .arrow-button {
+    background-color: #f2f2f2;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0.5rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1; /* Ensure buttons are above the books */
+  }
+  
+  .arrow-left {
+    left: 15rem; /* Adjust positioning closer to the books */
+  }
+  
+  .arrow-right {
+    right: 15rem; /* Adjust positioning closer to the books */
+  }
+  
+  .product-listing-card {
+    width: 150px; /* Adjust the width to make cards smaller */
+    margin: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+  }
+  
+  .product-listing-img-container img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .product-listing-details-container {
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .card-btn-container {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .product-listing-button,
+  .add-to-cart-button {
+    padding: 0.5rem;
+    width: 100%;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    background-color: #ff7f50;
+    color: white;
+    font-size: 1rem;
+    border-radius: 0 0 8px 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .product-listing-button:hover,
+  .add-to-cart-button:hover {
+    background-color: #e76e3d;
+  }
+  

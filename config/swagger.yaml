@@ -7,7 +7,7 @@ servers:
   - url: http://localhost:3000
     description: Local server
 paths:
-  /books:
+  /library-api/book:
     get:
       summary: Get all books
       responses:
@@ -30,7 +30,7 @@ paths:
       responses:
         '201':
           description: Book created
-  /books/{id}:
+  /library-api/book/{id}:
     get:
       summary: Get a book by ID
       parameters:
@@ -83,7 +83,144 @@ paths:
           description: Book deleted
         '404':
           description: Book not found
-  /members:
+  /library-api/book/{id}/NbrOfcopies:
+    get:
+      summary: Get number of copies of a book
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The book ID
+      responses:
+        '200':
+          description: Number of copies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+  /library-api/book/genre/{genre}:
+    get:
+      summary: Get books by genre
+      parameters:
+        - in: path
+          name: genre
+          schema:
+            type: string
+          required: true
+          description: The genre name
+      responses:
+        '200':
+          description: A list of books for the specified genre
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        '404':
+          description: No books found for this genre
+  /library-api/copy:
+    get:
+      summary: Get all copies
+      responses:
+        '200':
+          description: A list of copies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Copy'
+    post:
+      summary: Add a new copy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Copy'
+      responses:
+        '201':
+          description: Copy created
+  /library-api/copy/{id}:
+    get:
+      summary: Get a copy by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The copy ID
+      responses:
+        '200':
+          description: A single copy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Copy'
+        '404':
+          description: Copy not found
+    put:
+      summary: Update a copy by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The copy ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Copy'
+      responses:
+        '200':
+          description: Copy updated
+        '404':
+          description: Copy not found
+    delete:
+      summary: Delete a copy by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The copy ID
+      responses:
+        '200':
+          description: Copy deleted
+        '404':
+          description: Copy not found
+  /library-api/copy/NbOfAvailableCopies/{bookId}:
+    get:
+      summary: Get number of available copies of a book
+      parameters:
+        - in: path
+          name: bookId
+          schema:
+            type: integer
+          required: true
+          description: The book ID
+      responses:
+        '200':
+          description: Number of available copies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  availableCopies:
+                    type: integer        
+  /library-api/member:
     get:
       summary: Get all members
       responses:
@@ -95,18 +232,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Member'
-    post:
-      summary: Add a new member
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Member'
-      responses:
-        '201':
-          description: Member created
-  /members/{id}:
+  /library-api/member/{id}:
     get:
       summary: Get a member by ID
       parameters:
@@ -159,7 +285,7 @@ paths:
           description: Member deleted
         '404':
           description: Member not found
-  /loans:
+  /library-api/loan:
     get:
       summary: Get all loans
       responses:
@@ -182,7 +308,7 @@ paths:
       responses:
         '201':
           description: Loan created
-  /loans/{id}:
+  /library-api/loan/member/{id}:
     get:
       summary: Get a loan by ID
       parameters:
@@ -201,6 +327,7 @@ paths:
                 $ref: '#/components/schemas/Loan'
         '404':
           description: Loan not found
+  /library-api/loan/{id}:        
     put:
       summary: Update a loan by ID
       parameters:
@@ -235,7 +362,7 @@ paths:
           description: Loan deleted
         '404':
           description: Loan not found
-  /recommendations:
+  /library-api/recommendation:
     get:
       summary: Get all recommendations
       responses:
@@ -258,7 +385,7 @@ paths:
       responses:
         '201':
           description: Recommendation created
-  /recommendations/{id}:
+  /library-api/recommendation/{id}:
     get:
       summary: Get a recommendation by ID
       parameters:
@@ -310,7 +437,77 @@ paths:
         '200':
           description: Recommendation deleted
         '404':
-          description: Recommendation not found
+          description: Recommendation not found        
+  /library-api/auth/signup:
+    post:
+      summary: Sign up a new member
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+            $ref: '#/components/schemas/Member'
+      responses:
+        '201':
+          description: Member created
+  /library-api/auth/login:
+    post:
+     summary: Log in a user
+     requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+     responses:
+      '200':
+        description: Login successful
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      '401':
+        description: Invalid email or password
+
+  /library-api/auth/admin-login:
+    post:
+     summary: Log in an admin
+     requestBody:
+       required: true
+       content:
+         application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+     responses:
+      '200':
+        description: Login successful
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                token:
+                  type: string
+      '401':
+        description: Invalid email or password
+
 components:
   schemas:
     Book:
@@ -328,23 +525,48 @@ components:
           type: integer
         isbn:
           type: string
+        description:
+          type: string
+        book_image:
+          type: string
+        language:
+          type: string
+        length:
+          type: integer
+    Copy:
+      type: object
+      properties:
+        id:
+          type: integer
+        book_id:
+          type: integer
+        status:
+          type: string
+          enum: ['available', 'borrowed']
     Member:
       type: object
       properties:
-        member_id:
+        id:
           type: integer
         name:
           type: string
+        email:
+          type: string
+        password:
+          type: string
         address:
           type: string
-        contact_details:
+        contact:
           type: string
+        created_at:
+          type: string
+          format: date-time
     Loan:
       type: object
       properties:
-        loan_id:
+        id:
           type: integer
-        book_id:
+        copy_id:
           type: integer
         member_id:
           type: integer
@@ -357,17 +579,23 @@ components:
         return_date:
           type: string
           format: date
-        fines:
+        fine:
           type: number
           format: float
+        created_at:
+          type: string
+          format: date-time
     Recommendation:
       type: object
       properties:
-        recommendation_id:
+        id:
           type: integer
         member_id:
           type: integer
-        recommended_book_ids:
+        recommended_books:
           type: string
         reasons:
           type: string
+        created_at:
+          type: string
+          format: date-time

@@ -1,0 +1,64 @@
+.product-listing-card {
+  border: 1px solid #aaa;
+  width: 150px; /* Make cards smaller */
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto; /* Adjust height */
+  position: relative;
+}
+
+.product-listing-img-container {
+  width: 100%;
+  height: 200px; /* Adjust height as needed */
+  text-align: center;
+}
+
+.product-listing-image {
+  width: auto; /* Maintain aspect ratio */
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-listing-details-container {
+  padding-top: 1rem;
+  flex-grow: 1;
+  display: none; /* Hide title and author name */
+}
+
+.card-btn-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  align-items: center; /* Center buttons */
+}
+
+.product-listing-button {
+  background-color: var(--primary-color-bright);
+  padding: 0.5rem 1rem; /* Adjust padding as needed */
+  text-align: center;
+  color: white;
+  font-family: Chivo Mono;
+  text-decoration: none;
+  margin: 0.2rem 0;
+  transition: 0.2s ease-in;
+  white-space: nowrap; /* Prevent text from wrapping */
+  display: inline-block !important; /* Make button adjust to text length */
+  min-width: 90px; /* Minimum width to ensure uniformity */
+  width: auto !important; /* Let button adjust to text */
+}
+
+.product-listing-button:hover {
+  background-color: #000;
+}
+
+.not-available {
+  background-color: darkgray !important; /* Force dark gray background */
+  cursor: not-allowed !important;
+  color: white !important; /* Ensure text color is white */
+  opacity: 1 !important; /* Ensure full opacity */
+  width: auto; /* Adjust button width based on text */
+  min-width: 90px; /* Minimum width to ensure uniformity */
+}

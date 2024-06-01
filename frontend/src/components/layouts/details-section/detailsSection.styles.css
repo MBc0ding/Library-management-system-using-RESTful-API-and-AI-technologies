@@ -1,0 +1,68 @@
+.detail-section-container{
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+}
+
+.flex-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.book-img-container, .book-detail-container{
+    width: 50%;
+}
+
+.book-img-container{
+    text-align: center;
+}
+
+.book-img-container img{
+    height:400px;
+    border: 1px solid #ddd;
+}
+
+.book-detail-container h2{
+    font-size: 2rem;
+}
+
+.book-detail-container p{
+    padding: 1rem 0;
+}
+
+.book-description{
+    line-height: 1.7rem;
+}
+
+.book-detail-container h3{
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    color: var(--primary-color-bright);
+}
+
+
+.button-primary {
+    background-color: var(--primary-color-bright);
+    padding: 0.5rem 1rem;
+    text-align: center;
+    color: white;
+    font-family: Chivo Mono;
+    text-decoration: none;
+    white-space: nowrap;
+    margin: 0.2rem 0;
+    transition: 0.2s ease-in;
+    display: inline-block;
+    min-width: 90px; /* Ensure a minimum width */
+}
+
+.button-primary:hover {
+    background-color: #000;
+}
+
+.not-available {
+    background-color: darkgray !important; /* Force dark gray background */
+    cursor: not-allowed !important;
+    color: white !important; /* Ensure text color is white */
+    opacity: 1 !important; /* Ensure full opacity */
+    width: auto; /* Adjust button width based on text */
+    min-width: 90px; /* Minimum width to ensure uniformity */
+}
