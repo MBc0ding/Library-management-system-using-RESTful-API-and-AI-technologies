@@ -32,13 +32,29 @@ class Loan {
         const rows = await db.query(sql, [id]);
         return rows;  // Return a single loan
     }
+    
+    static async Check_NbOfLoans(id) {
+ 
+        const sql = `SELECT count(*) as NbOfloans FROM loans WHERE member_id = ? AND return_date is null`;
+        const result = await db.query(sql, [id]);
+        return result[0].NbOfloans; 
+    } 
 
     static async addLoan(loan) {
+        const AvailableCopy_sql = `SELECT id from copies WHERE book_id = ? AND status = 'available' LIMIT 1`;
+        const AvailableCopy = await db.query(AvailableCopy_sql , [loan.copy_id]); 
+        if (!AvailableCopy) {
+            throw new Error('No available copies found for this book.');
+        }    
         const sql = 'INSERT INTO loans (copy_id, member_id, loan_date, due_date, return_date, fine) VALUES (?, ?, ?, ?, ?, ?)';
         const result = await db.query(sql, [
-            loan.copy_id, loan.member_id, loan.loan_date,
+            AvailableCopy[0].id , loan.member_id, loan.loan_date,
             loan.due_date, loan.return_date, loan.fine
         ]);
+        
+        // making the copy not available after loan insert because its borrowed
+        await db.query(`UPDATE copies set status = 'not available' WHERE id = ? `,[AvailableCopy[0].id]);
+
         return result.insertId;  // Return the ID of the inserted loan
     }
 

@@ -24,6 +24,13 @@ export const getLoanByMemberId = async (req, res) => {
 
 export const addLoan = async (req, res) => {
     try {
+        const memberId = req.body.member_id;
+        const currentLoans = await Loan.Check_NbOfLoans(memberId);
+
+        if (currentLoans >= 3) {
+            return res.status(400).send({ message: 'You cannot borrow more than 3 books at a time.' });
+        }
+
         const loanId = await Loan.addLoan(req.body);
         res.status(201).json({ message: 'Loan added successfully', id: loanId });
     } catch (error) {
@@ -41,7 +48,6 @@ export const updateLoan = async (req, res) => {
             return res.status(404).send({ message: 'Loan not found' });
         }
 
-        // Merge the new values with the existing loan details
         const updatedLoan = {
             ...existingLoan,
             copy_id: copy_id !== undefined ? copy_id : existingLoan.copy_id,
@@ -73,5 +79,15 @@ export const deleteLoan = async (req, res) => {
         }
     } catch (error) {
         res.status(500).send({ message: 'Failed to delete loan', error });
+    }
+};
+
+export const checkNbOfLoans = async (req, res) => {
+    try {
+        const memberId = req.params.id;
+        const loanCount = await Loan.Check_NbOfLoans(memberId);
+        res.json({ memberId, loanCount });
+    } catch (error) {
+        res.status(500).send({ message: 'Failed to retrieve loan count', error });
     }
 };

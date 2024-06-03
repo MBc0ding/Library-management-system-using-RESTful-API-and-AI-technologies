@@ -4,11 +4,13 @@ info:
   description: API documentation for the Library Management System
   version: 1.0.0
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:5000
     description: Local server
 paths:
   /library-api/book:
     get:
+      tags:
+        - Books
       summary: Get all books
       responses:
         '200':
@@ -20,6 +22,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
     post:
+      tags:
+        - Books
       summary: Add a new book
       requestBody:
         required: true
@@ -32,6 +36,8 @@ paths:
           description: Book created
   /library-api/book/{id}:
     get:
+      tags:
+        - Books
       summary: Get a book by ID
       parameters:
         - in: path
@@ -50,6 +56,8 @@ paths:
         '404':
           description: Book not found
     put:
+      tags:
+        - Books
       summary: Update a book by ID
       parameters:
         - in: path
@@ -70,6 +78,8 @@ paths:
         '404':
           description: Book not found
     delete:
+      tags:
+        - Books
       summary: Delete a book by ID
       parameters:
         - in: path
@@ -85,6 +95,8 @@ paths:
           description: Book not found
   /library-api/book/{id}/NbrOfcopies:
     get:
+      tags:
+        - Books
       summary: Get number of copies of a book
       parameters:
         - in: path
@@ -105,6 +117,8 @@ paths:
                     type: integer
   /library-api/book/genre/{genre}:
     get:
+      tags:
+        - Books
       summary: Get books by genre
       parameters:
         - in: path
@@ -126,6 +140,8 @@ paths:
           description: No books found for this genre
   /library-api/copy:
     get:
+      tags:
+        - Copies
       summary: Get all copies
       responses:
         '200':
@@ -137,6 +153,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Copy'
     post:
+      tags:
+        - Copies
       summary: Add a new copy
       requestBody:
         required: true
@@ -149,6 +167,8 @@ paths:
           description: Copy created
   /library-api/copy/{id}:
     get:
+      tags:
+        - Copies
       summary: Get a copy by ID
       parameters:
         - in: path
@@ -167,6 +187,8 @@ paths:
         '404':
           description: Copy not found
     put:
+      tags:
+        - Copies
       summary: Update a copy by ID
       parameters:
         - in: path
@@ -187,6 +209,8 @@ paths:
         '404':
           description: Copy not found
     delete:
+      tags:
+        - Copies
       summary: Delete a copy by ID
       parameters:
         - in: path
@@ -202,6 +226,8 @@ paths:
           description: Copy not found
   /library-api/copy/NbOfAvailableCopies/{bookId}:
     get:
+      tags:
+        - Copies
       summary: Get number of available copies of a book
       parameters:
         - in: path
@@ -222,6 +248,8 @@ paths:
                     type: integer        
   /library-api/member:
     get:
+      tags:
+        - Members
       summary: Get all members
       responses:
         '200':
@@ -234,6 +262,8 @@ paths:
                   $ref: '#/components/schemas/Member'
   /library-api/member/{id}:
     get:
+      tags:
+        - Members
       summary: Get a member by ID
       parameters:
         - in: path
@@ -252,6 +282,8 @@ paths:
         '404':
           description: Member not found
     put:
+      tags:
+        - Members
       summary: Update a member by ID
       parameters:
         - in: path
@@ -272,6 +304,8 @@ paths:
         '404':
           description: Member not found
     delete:
+      tags:
+        - Members
       summary: Delete a member by ID
       parameters:
         - in: path
@@ -287,6 +321,8 @@ paths:
           description: Member not found
   /library-api/loan:
     get:
+      tags:
+        - Loans
       summary: Get all loans
       responses:
         '200':
@@ -298,6 +334,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Loan'
     post:
+      tags:
+        - Loans
       summary: Add a new loan
       requestBody:
         required: true
@@ -310,6 +348,8 @@ paths:
           description: Loan created
   /library-api/loan/member/{id}:
     get:
+      tags:
+        - Loans
       summary: Get a loan by ID
       parameters:
         - in: path
@@ -329,6 +369,8 @@ paths:
           description: Loan not found
   /library-api/loan/{id}:        
     put:
+      tags:
+        - Loans
       summary: Update a loan by ID
       parameters:
         - in: path
@@ -349,6 +391,8 @@ paths:
         '404':
           description: Loan not found
     delete:
+      tags:
+        - Loans
       summary: Delete a loan by ID
       parameters:
         - in: path
@@ -362,8 +406,27 @@ paths:
           description: Loan deleted
         '404':
           description: Loan not found
+  /library-api/loans/checkNbOfLoans/{member_id}:
+    get:
+      tags:
+        - Loans
+      summary: Check the number of current loans for a member
+      parameters:
+        - in: path
+          name: member_id
+          schema:
+            type: integer
+          required: true
+          description: The member ID
+      responses:
+        '200':
+          description: The number of current loans for the member
+        '500':
+          description: Failed to check the number of loans    
   /library-api/recommendation:
     get:
+      tags:
+        - Recommendations
       summary: Get all recommendations
       responses:
         '200':
@@ -375,6 +438,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Recommendation'
     post:
+      tags:
+        - Recommendations
       summary: Add a new recommendation
       requestBody:
         required: true
@@ -387,6 +452,8 @@ paths:
           description: Recommendation created
   /library-api/recommendation/{id}:
     get:
+      tags:
+        - Recommendations
       summary: Get a recommendation by ID
       parameters:
         - in: path
@@ -405,6 +472,8 @@ paths:
         '404':
           description: Recommendation not found
     put:
+      tags:
+        - Recommendations
       summary: Update a recommendation by ID
       parameters:
         - in: path
@@ -425,6 +494,8 @@ paths:
         '404':
           description: Recommendation not found
     delete:
+      tags:
+        - Recommendations
       summary: Delete a recommendation by ID
       parameters:
         - in: path
@@ -440,74 +511,190 @@ paths:
           description: Recommendation not found        
   /library-api/auth/signup:
     post:
+      tags:
+        - Auth
       summary: Sign up a new member
       requestBody:
         required: true
         content:
           application/json:
-           schema:
-            $ref: '#/components/schemas/Member'
+            schema:
+              $ref: '#/components/schemas/Member'
       responses:
         '201':
           description: Member created
   /library-api/auth/login:
     post:
-     summary: Log in a user
-     requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              email:
-                type: string
-              password:
-                type: string
-     responses:
-      '200':
-        description: Login successful
+      tags:
+        - Auth
+      summary: Log in a user
+      requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                message:
+                email:
                   type: string
-                token:
+                password:
                   type: string
-      '401':
-        description: Invalid email or password
-
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        '401':
+          description: Invalid email or password
   /library-api/auth/admin-login:
     post:
-     summary: Log in an admin
-     requestBody:
-       required: true
-       content:
-         application/json:
-          schema:
-            type: object
-            properties:
-              email:
-                type: string
-              password:
-                type: string
-     responses:
-      '200':
-        description: Login successful
+      tags:
+        - Auth
+      summary: Log in an admin
+      requestBody:
+        required: true
         content:
           application/json:
             schema:
               type: object
               properties:
-                message:
+                email:
                   type: string
-                token:
+                password:
                   type: string
-      '401':
-        description: Invalid email or password
-
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+        '401':
+          description: Invalid email or password
+  /library-api/cart/member/{member_id}:
+    get:
+      tags:
+        - Cart
+      summary: Get cart items for a member
+      parameters:
+        - in: path
+          name: member_id
+          schema:
+            type: integer
+          required: true
+          description: The member ID
+      responses:
+        '200':
+          description: A list of cart items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CartItem'
+        '404':
+          description: No cart items found
+    delete:
+      tags:
+        - Cart
+      summary: Clear cart for a member
+      parameters:
+        - in: path
+          name: member_id
+          schema:
+            type: integer
+          required: true
+          description: The member ID
+      responses:
+        '200':
+          description: Cart cleared
+        '404':
+          description: Cart not found
+  /library-api/cart/member/{member_id}/book/{book_id}:
+    post:
+      tags:
+        - Cart
+      summary: Add a book to the cart
+      parameters:
+        - in: path
+          name: member_id
+          schema:
+            type: integer
+          required: true
+          description: The member ID
+        - in: path
+          name: book_id
+          schema:
+            type: integer
+          required: true
+          description: The book ID
+      responses:
+        '201':
+          description: Book added to cart
+        '404':
+          description: Book or member not found
+    delete:
+      tags:
+        - Cart
+      summary: Remove a book from the cart
+      parameters:
+        - in: path
+          name: member_id
+          schema:
+            type: integer
+          required: true
+          description: The member ID
+        - in: path
+          name: book_id
+          schema:
+            type: integer
+          required: true
+          description: The book ID
+      responses:
+        '200':
+          description: Item removed from cart successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Item removed from cart successfully
+        '404':
+          description: Item not found in cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Item not found in cart
+        '500':
+          description: Failed to remove item from cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Failed to remove item from cart
+                  error:
+                    type: string
 components:
   schemas:
     Book:
@@ -597,5 +784,17 @@ components:
         reasons:
           type: string
         created_at:
+          type: string
+          format: date-time
+    CartItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        member_id:
+          type: integer
+        book_id:
+          type: integer
+        added_at:
           type: string
           format: date-time

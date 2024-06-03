@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import { Routes, Route } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode'; // Correct the import
+import api from './services/api';
 
 import HomePage from "./pages/homepage/HomePage";
 import BooksPage from "./pages/bookspage/BooksPage";
@@ -28,6 +29,9 @@ const App = () => {
         if (token) {
             const decodedToken = jwtDecode(token); // Decode the JWT token
             setAuthenticatedUser({ id: decodedToken.id, token }); // Set authenticatedUser with token and user ID
+            
+            // Fetch loan history for the authenticated user
+            fetchLoanHistory(decodedToken.id);
         }
     }, []);
 
@@ -39,6 +43,15 @@ const App = () => {
 
         setTotalAmount(total);
     }, [cartItems]);
+
+    const fetchLoanHistory = async (userId) => {
+        try {
+            const response = await api.get(`/library-api/loan/member/${userId}`);
+            setLoanHistory(response.data);
+        } catch (error) {
+            console.error("Error fetching loan history:", error);
+        }
+    };
 
     const isLoggedIn = !!authenticatedUser;
 

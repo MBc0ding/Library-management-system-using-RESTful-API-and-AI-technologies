@@ -8,20 +8,15 @@ select * from admins;
 
 select * from members;
 
+select * from cart;
+
 select * from loans;
-
-INSERT INTO admins (user_id) VALUES (1);
-
-SELECT id, email, password FROM users WHERE email = 'abah@example.com' AND  id in (SELECT user_id FROM members);
-
-SELECT user_id FROM members;
 
 select * from recommendations;
 
-delete from members;
-
 insert into users (name,email,password,address,contact) values ("Admin","admin@gmail.com","123","123 Main St","123-456-7890");
 
+INSERT INTO admins (user_id) VALUES (1);
 
 insert into books (title, author, genre, publication_year, isbn, description, language, length, image_url) 
 values ('Python Crash Course, 3rd Edition: A Hands-On, Project-Based Introduction to Programming 3rd Edition',
@@ -42,10 +37,6 @@ Troubleshoot coding errors and solve common programming problems',
 'English',
 '512',
 'https://m.media-amazon.com/images/I/81py-nCTfrL._SY466_.jpg');
-
-insert into copies (book_id) values (4);
-
-update copies set status = 'not available' where id = 9;
 
 insert into books (title, author, genre, publication_year, isbn, description, language, length, image_url) 
 values ('JavaScript Crash Course: A Hands-On, Project-Based Introduction to Programming',
@@ -185,8 +176,11 @@ Award-winner scientist, Carl J. Pratt, presents the most exhaustive and clear in
 '103',
 'https://m.media-amazon.com/images/I/71xYXV5h6+L._SY466_.jpg');
 
-insert into loans (copy_id,member_id,loan_date,due_date) 
-values (1,1,'2024-05-31','2024-06-14');
-
 delete from loans;
+
+update copies set status = 'available';
+
+delete from cart;
+
+SELECT b.title, b.author , b.image_url  FROM books b, cart c  WHERE b.id = c.book_id AND c.member_id = 2;
 

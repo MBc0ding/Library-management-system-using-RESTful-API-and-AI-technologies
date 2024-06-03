@@ -4,12 +4,13 @@ import YAML from 'yamljs';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import fs from 'fs/promises';
-import dotenv from 'dotenv';
 import open from 'open';  // Import the open package
 import cors from 'cors'; // Import the cors package
+import dotenv from 'dotenv';
 
 // Load environment variables from .env file
 dotenv.config();
+
 
 // Get the __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);

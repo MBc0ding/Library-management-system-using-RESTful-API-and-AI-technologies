@@ -12,6 +12,7 @@ const Navbar = ({ darkTheme, darkText }) => {
         localStorage.removeItem('token');
         setAuthenticatedUser(null);
         navigate('/login');
+        window.location.reload();
     };
 
     const showLoginandSignUp = (

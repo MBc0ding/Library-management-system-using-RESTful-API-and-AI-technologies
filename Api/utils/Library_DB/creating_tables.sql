@@ -63,3 +63,11 @@ CREATE TABLE recommendations (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id INT NOT NULL,
+    book_id INT NOT NULL,
+    FOREIGN KEY (member_id) REFERENCES members(id),
+    FOREIGN KEY (book_id) REFERENCES books(id)
+);

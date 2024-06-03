@@ -32,9 +32,23 @@ export const addCopy = async (req, res) => {
 };
 
 export const updateCopy = async (req, res) => {
+    const { id } = req.params;
+    const { book_id, status } = req.body;
+
     try {
-        const updatedRows = await Copy.updateCopy(req.params.id, req.body);
-        if (updatedRows) {
+        const existingCopy = await Copy.getCopyById(id);
+        if (!existingCopy) {
+            return res.status(404).send({ message: 'Copy not found' });
+        }
+
+        const updatedCopy = {
+            ...existingCopy,
+            book_id: book_id !== undefined ? book_id : existingCopy.book_id,
+            status: status !== undefined ? status : existingCopy.status,
+        };
+
+        const affectedRows = await Copy.updateCopy(id, updatedCopy);
+        if (affectedRows > 0) {
             res.send({ message: 'Copy updated successfully' });
         } else {
             res.status(404).send({ message: 'Copy not found' });
@@ -43,7 +57,6 @@ export const updateCopy = async (req, res) => {
         res.status(500).send({ message: 'Failed to update copy', error });
     }
 };
-
 export const deleteCopy = async (req, res) => {
     try {
         const deletedRows = await Copy.deleteCopy(req.params.id);

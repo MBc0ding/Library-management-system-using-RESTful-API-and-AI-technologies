@@ -8,5 +8,6 @@ router.get('/member/:id', LoanController.getLoanByMemberId);
 router.post('/', LoanController.addLoan);
 router.put('/:id', LoanController.updateLoan);
 router.delete('/:id', LoanController.deleteLoan);
+router.get('/checkNbOfLoans/:id', LoanController.checkNbOfLoans);
 
 export default router;

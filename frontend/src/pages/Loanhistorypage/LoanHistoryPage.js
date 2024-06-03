@@ -12,9 +12,7 @@ const LoanHistoryPage = () => {
     useEffect(() => {
         const fetchLoanHistory = async () => {
             try {
-                console.log('Fetching loan history for user ID:', authenticatedUser.id.id); // Debugging
                 const response = await api.get(`/library-api/loan/member/${authenticatedUser.id.id}`);
-                console.log('Loan history fetched:', response.data); // Debugging
                 setLoanHistory(response.data);
             } catch (error) {
                 console.error("Error fetching loan history:", error);
@@ -26,14 +24,14 @@ const LoanHistoryPage = () => {
         }
     }, [authenticatedUser, setLoanHistory]);
 
-    const handleReturn = async (id) => {
+    const handleReturn = async (id, copyId) => {
         const formattedDate = new Date().toISOString().split('T')[0]; // Correctly format the date as "YYYY-MM-DD"
         try {
             await api.put(`/library-api/loan/${id}`, { return_date: formattedDate });
+            await api.put(`/library-api/copy/${copyId}`, { status: 'available' }); // Update the copy status to 'available'
             setLoanHistory(prevHistory =>
                 prevHistory.map(loan => (loan.id === id ? { ...loan, return_date: formattedDate } : loan))
             );
-            console.log("return_date: ",formattedDate);
             alert("Book returned successfully.");
         } catch (error) {
             console.error("Error returning book:", error);
@@ -75,7 +73,7 @@ const LoanHistoryPage = () => {
                                             {item.return_date ? (
                                                 'Returned'
                                             ) : (
-                                                <button onClick={() => handleReturn(item.id)} className="button-secondary">Return</button>
+                                                <button onClick={() => handleReturn(item.id, item.copy_id)} className="button-secondary">Return</button>
                                             )}
                                         </td>
                                     </tr>

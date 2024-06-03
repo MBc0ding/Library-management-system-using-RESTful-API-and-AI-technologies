@@ -62,3 +62,13 @@
   width: auto; /* Adjust button width based on text */
   min-width: 90px; /* Minimum width to ensure uniformity */
 }
+
+.owned {
+  background-color: rgb(54, 162, 54) !important; /* Force dark gray background */
+  cursor: not-allowed !important;
+  color: white !important; /* Ensure text color is white */
+  opacity: 1 !important; /* Ensure full opacity */
+  width: auto; /* Adjust button width based on text */
+  min-width: 90px; /* Minimum width to ensure uniformity */
+
+}

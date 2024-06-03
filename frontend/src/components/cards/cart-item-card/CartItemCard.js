@@ -1,13 +1,28 @@
 import React, { useContext } from 'react';
 import './cart-item-card.styles.css';
-import { CartContext } from '../../../App';
+import { CartContext, UserContext } from '../../../App';
+import api from '../../../services/api'; // Ensure correct path to the api.js
 
 const CartItemCard = ({ bookData }) => {
     const { cartItems, setCartItems } = useContext(CartContext);
+    const { authenticatedUser } = useContext(UserContext);
 
-    const handleRemove = () => {
-        console.log(bookData.id);
-        setCartItems(cartItems.filter((item) => item.id !== bookData.id));
+    const handleRemove = async () => {
+        try {
+            //console.log("member_id:",authenticatedUser.id.id);
+            //console.log("book_id: ",bookData.book_id);
+            
+            // Call the API to remove the item from the cart using authenticatedUser to get member_id
+            await api.delete(`/library-api/cart/member/${authenticatedUser.id.id}/book/${bookData.book_id}`);
+
+            // Update the cart items in the state
+            setCartItems(cartItems.filter((item) => item.book_id !== bookData.book_id));
+ 
+        } catch (error) {
+            console.error("Error removing item from cart:", error);
+            alert("An error occurred while removing the item from the cart.");
+        }
+        
     }
 
     return (

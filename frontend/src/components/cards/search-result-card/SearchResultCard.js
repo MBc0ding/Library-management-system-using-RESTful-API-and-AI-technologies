@@ -11,7 +11,7 @@ const SearchResultCard = ({ bookData }) => {
             <div className="cart-item-content-container">
                 <h2>{bookData.title}</h2>
                 <p>{bookData.author}</p>
-                <Link to={`/book-details/${bookData.id}`} className="button-primary">Product Details</Link>
+                <Link to={`/book-details/${bookData.id}`} className="button-primary">Book Details</Link>
             </div>
         </section>
     );
