@@ -27,13 +27,13 @@ class Book {
     }
 
     static async addBook(book) {
-        const sql = 'INSERT INTO books (title, author, genre, publicationYear, isbn, description, language, length, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const sql = 'INSERT INTO books (title, author, genre, publication_year, isbn, description, language, length, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
         const result = await db.query(sql, [book.title, book.author, book.genre, book.publicationYear, book.isbn, book.description, book.language, book.length, book.image]);
         return result.insertId;  // Return the ID of the inserted book
     }
 
     static async updateBook(id, book) {
-        const sql = 'UPDATE books SET title = ?, author = ?, genre = ?, publicationYear = ?, isbn = ?, description = ?, language = ?, length=?, image = ? WHERE id = ?';
+        const sql = 'UPDATE books SET title = ?, author = ?, genre = ?, publication_year = ?, isbn = ?, description = ?, language = ?, length = ?, image_url = ? WHERE id = ?';
         const result = await db.query(sql, [book.title, book.author, book.genre, book.publicationYear, book.isbn, book.description, book.language, book.length, book.image, id]);
         return result.affectedRows;  // Return the number of affected rows
     }
@@ -56,7 +56,12 @@ class Book {
         const rows = await db.query(sql, [genre]);
         return rows;  // Return the list of books for the specified genre
     }
-
+    
+    static async getBookByTitle(title) {
+        const sql = 'SELECT * FROM books WHERE title = ?';
+        const rows = await db.query(sql, [title]);
+        return rows; // Return the list of books with the given title
+    }
 
 }
 

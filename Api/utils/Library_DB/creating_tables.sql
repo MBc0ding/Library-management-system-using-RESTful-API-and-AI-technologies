@@ -11,13 +11,13 @@ CREATE TABLE users (
 CREATE TABLE members (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE books (

@@ -11,7 +11,7 @@ export const getAllMembers = async (req, res) => {
 
 export const getMemberById = async (req, res) => {
     try {
-        const member = await Member.getMemberById(req.params.id);
+        const member = await Member.getMemberId(req.params.id);
         if (member) {
             res.json(member);
         } else {

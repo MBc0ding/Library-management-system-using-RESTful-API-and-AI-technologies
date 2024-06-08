@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../../services/api';
 import { UserContext } from '../../../App';
-import { jwtDecode } from 'jwt-decode'; // Correct the import
+import { jwtDecode }  from 'jwt-decode'; // Corrected import
 
 const AuthForm = ({ buttonName, role }) => {
     const [email, setEmail] = useState('');
@@ -17,6 +17,7 @@ const AuthForm = ({ buttonName, role }) => {
         setError(''); // Reset error message
 
         if (buttonName === 'Login') {
+            console.log("role:",role);
             const endpoint = role === 'admin' ? '/library-api/auth/admin-login' : '/library-api/auth/login';
             api.post(endpoint, { email, password })
                 .then((response) => {
@@ -24,7 +25,7 @@ const AuthForm = ({ buttonName, role }) => {
                     localStorage.setItem('token', token);
                     const decodedToken = jwtDecode(token); // Decode the JWT token
                     setAuthenticatedUser({ id: decodedToken.id, token }); // Set authenticatedUser with token and user ID
-                    navigate('/');
+                    navigate(role === 'admin' ? '/admin-dashboard' : '/'); // Redirect based on role
                 })
                 .catch((err) => {
                     setError('Incorrect email or password'); // Set error message on failure

@@ -9,7 +9,7 @@ class Copy {
     }
 
     static async getAllCopies() {
-        const sql = 'SELECT * FROM copies';
+        const sql = 'SELECT b.title, c.* FROM books b, copies c where c.book_id = b.id';
         const rows = await db.query(sql);
         return rows;
     }

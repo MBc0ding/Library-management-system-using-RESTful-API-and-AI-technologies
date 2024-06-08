@@ -12,6 +12,8 @@ select * from cart;
 
 select * from loans;
 
+update loans set return_date = '2024-06-24' where id = 45;
+
 select * from recommendations;
 
 insert into users (name,email,password,address,contact) values ("Admin","admin@gmail.com","123","123 Main St","123-456-7890");
@@ -183,4 +185,6 @@ update copies set status = 'available';
 delete from cart;
 
 SELECT b.title, b.author , b.image_url  FROM books b, cart c  WHERE b.id = c.book_id AND c.member_id = 2;
+
+SELECT * FROM books WHERE title = 'The Art of War';
 

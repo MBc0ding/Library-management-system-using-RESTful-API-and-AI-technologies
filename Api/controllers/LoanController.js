@@ -3,6 +3,9 @@ import Loan from '../models/Loan.js';
 export const getAllLoans = async (req, res) => {
     try {
         const loans = await Loan.getAllLoans();
+        for (let loan of loans) {
+            loan.fine = Loan.calculateFine(loan.due_date, loan.return_date);
+        }
         res.json(loans);
     } catch (error) {
         res.status(500).send({ message: 'Failed to retrieve loans', error });
@@ -11,14 +14,13 @@ export const getAllLoans = async (req, res) => {
 
 export const getLoanByMemberId = async (req, res) => {
     try {
-        const loan = await Loan.getLoanByMemberId(req.params.id);
-        if (loan) {
-            res.json(loan);
-        } else {
-            res.status(404).send({ message: 'Loan not found' });
+        const loans = await Loan.getLoanByMemberId(req.params.id);
+        for (let loan of loans) {
+            loan.fine = Loan.calculateFine(loan.due_date, loan.return_date);
         }
+        res.json(loans);
     } catch (error) {
-        res.status(500).send({ message: 'Failed to retrieve loan', error });
+        res.status(500).send({ message: 'Failed to retrieve loans', error });
     }
 };
 
@@ -32,6 +34,7 @@ export const addLoan = async (req, res) => {
         }
 
         const loanId = await Loan.addLoan(req.body);
+        await Loan.updateFine(loanId); // Update fine after adding loan
         res.status(201).json({ message: 'Loan added successfully', id: loanId });
     } catch (error) {
         res.status(500).send({ message: 'Failed to add loan', error });
@@ -55,11 +58,12 @@ export const updateLoan = async (req, res) => {
             loan_date: loan_date !== undefined ? loan_date : existingLoan.loan_date,
             due_date: due_date !== undefined ? due_date : existingLoan.due_date,
             return_date: return_date !== undefined ? return_date : existingLoan.return_date,
-            fine: fine !== undefined ? fine : existingLoan.fine
+            fine: fine !== undefined ? fine : Loan.calculateFine(existingLoan.due_date, existingLoan.return_date)
         };
 
         const affectedRows = await Loan.updateLoan(id, updatedLoan);
         if (affectedRows > 0) {
+            await Loan.updateFine(id); // Update fine after updating loan
             res.send({ message: 'Loan updated successfully' });
         } else {
             res.status(404).send({ message: 'Loan not found' });

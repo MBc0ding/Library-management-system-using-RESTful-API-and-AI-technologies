@@ -24,7 +24,14 @@ export const getCopyById = async (req, res) => {
 
 export const addCopy = async (req, res) => {
     try {
-        const copyId = await Copy.addCopy(req.body);
+        const  { book_id , status } = req.body;
+
+        const copy = {
+            book_id: book_id,
+            status: status !== undefined ? status : "available"
+        };
+
+        const copyId = await Copy.addCopy(copy);
         res.status(201).json({ message: 'Copy added successfully', id: copyId });
     } catch (error) {
         res.status(500).send({ message: 'Failed to add copy', error });

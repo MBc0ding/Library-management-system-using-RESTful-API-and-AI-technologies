@@ -72,6 +72,32 @@ class Loan {
         const result = await db.query(sql, [id]);
         return result.affectedRows;  // Return the number of affected rows
     }
-}
+
+    // Add this method to calculate fine
+    static calculateFine(due_date, return_date) {
+        const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+        const dueDate = new Date(due_date);
+        const returnDate = return_date ? new Date(return_date) : new Date();
+
+        const diffDays = Math.round((returnDate - dueDate) / oneDay);
+        const finePerDay = 2; // Set your fine rate here
+
+        return diffDays > 0 ? diffDays * finePerDay : 0;
+    }
+
+    static async updateFine(id) {
+        const sql = 'SELECT due_date, return_date FROM loans WHERE id = ?';
+        const rows = await db.query(sql, [id]);
+        const loan = rows[0];
+
+        if (loan) {
+            const fine = this.calculateFine(loan.due_date, loan.return_date);
+            const updateSql = 'UPDATE loans SET fine = ? WHERE id = ?';
+            await db.query(updateSql, [fine, id]);
+        }
+    }
+
+
+}   
 
 export default Loan;

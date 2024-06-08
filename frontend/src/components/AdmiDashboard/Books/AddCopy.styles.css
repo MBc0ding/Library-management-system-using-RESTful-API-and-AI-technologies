@@ -1,0 +1,45 @@
+.add-copy-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-copy-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.addcopy-form-group {
+    margin-bottom: 15px;
+}
+
+.addcopy-form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.addcopy-form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.addcopy-confirm-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.addcopy-confirm-button:hover {
+    background-color: #218838;
+}
